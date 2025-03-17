@@ -7,6 +7,7 @@ import (
 	"hash"
 
 	//nolint:staticcheck // We should support this for legacy reasons.
+	//#nosec G507
 	"golang.org/x/crypto/ripemd160"
 )
 

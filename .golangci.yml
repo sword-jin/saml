@@ -36,7 +36,22 @@ linters:
     - goconst # Finds repeated strings that could be replaced by a constant [fast: true, auto-fix: false]
     - lll # Reports long lines [fast: true, auto-fix: false]
     - depguard # Go linter that checks if package imports are in a list of acceptable packages [fast: true, auto-fix: false]
+
 linters-settings:
+  errcheck:
+    exclude-functions:
+      - fmt.Fprintf
+
+  revive:
+    rules:
+      # This rule is annoying. Often you want to name the parameters for
+      # clarity because it conforms to an interface. Additionally, unparam
+      # finds a good number of cases for this anyways (with fewer false
+      # positives).
+      - name: unused-parameter
+        severity: warning
+        disabled: true
+
   goimports:
     local-prefixes: github.com/crewjam/saml
   govet:
@@ -65,12 +80,8 @@ linters-settings:
       - unreachable
       - unsafeptr
       - unusedresult
+
 issues:
-  exclude-rules:
-    - path: _test\.go$
-      linters:
-        - errcheck
   exclude-use-default: false
   exclude:
     - G104 # 'Errors unhandled. (gosec)
-
